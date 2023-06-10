@@ -11,6 +11,7 @@ import {
   NoContacts,
 } from './App.styled';
 
+const CONTACTS_LS_KEY = 'contacts';
 const initialContacts = [
   { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
   { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
@@ -25,7 +26,7 @@ export class App extends Component {
   };
 
   componentDidMount() {
-    const savedContacts = localStorage.getItem('contacts');
+    const savedContacts = localStorage.getItem(CONTACTS_LS_KEY);
 
     if (savedContacts !== null) {
       const parsedContacts = JSON.parse(savedContacts);
@@ -38,7 +39,10 @@ export class App extends Component {
 
   componentDidUpdate(_, prevState) {
     if (this.state.contacts !== prevState.contacts) {
-      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+      localStorage.setItem(
+        CONTACTS_LS_KEY,
+        JSON.stringify(this.state.contacts)
+      );
     }
   }
 
